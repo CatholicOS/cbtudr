@@ -104,7 +104,7 @@ The identifier records **where the unit was first created**, for readability. It
 
 The list abbreviates some names by contraction, keeping their first and last letters: `Il` (I*oe*l), `Apc` (Ap*o*c*alypsis*), `Ids` (I*u*d*a*s, Jude). The registry follows it as printed.
 
-The list also has misprints, which are reported to the Dicastery for Communication; the registry does not follow them:
+The list also has misprints, which are being reported to the Dicastery for Communication; the registry does not follow them:
 
 - `3 Io` is glossed *Epistula II Ioannis* (for III).
 - Some titles are misspelt (*Deutoronomii*, *Nahemiae*, *Liher Iudith*). The registry's titles are those of the Nova Vulgata on vatican.va.
@@ -220,36 +220,8 @@ The licences follow the proposal open in every CDCF registry (e.g. [CatholicOS/c
 
 ## 9. Open questions
 
-1. **Book abbreviations.**
-   - Do the Holy See's Latin abbreviations (§2.1) match the printed Nova Vulgata's own list?
-   - Is following the contractions as printed (`Il`, `Ids`, `Apc`) right, rather than the forms common elsewhere (`Ioel`, `Iud`, `Ap`)?
-2. **Edition identifiers.** The edition slugs here (`nvbse`, `vgcl`…) are local to this registry. A separate registry, **CBEDR** (Common Bible Edition Data Repository), is proposed to give editions canonical identifiers. It would also hold cross-references to the identifiers others already use:
-   - the Digital Bible Library;
-   - Bible Brain;
-   - CrossWire SWORD modules;
-   - eBible.org;
-   - Wikidata;
-   - the BibleGet API.
-3. **Unnumbered text.** How should a unit of text printed without a verse number be identified?
+The questions for the committee are tracked as issues:
 
-   **The case.** The Nova Vulgata prints the prescript of the Letter of Jeremiah ("Exemplum epistulae, quam misit Ieremias …") before Bar 6:1, without a number. Here it is `btu:bar.6.0`. It is part of the biblical text: in the Septuagint it is the letter's first verse.
-
-   **How editions treat it:**
-
-   | Edition | Treatment |
-   |---|---|
-   | The Nova Vulgata, the *Libro del Pueblo de Dios* | Unnumbered text before 6:1 |
-   | The Clementine Vulgate, the CEI 2008 | A heading above 6:1 |
-   | NABRE, RSV, NRSV | A numbered verse, 6:1; the rest of their chapter is numbered one ahead of the Nova Vulgata |
-
-   **The same problem elsewhere.** The Psalm superscriptions are verse 1 in the Nova Vulgata, but unnumbered in editions of the English tradition (KJV, Luzzi). Mapping such editions needs a way to name an edition's unnumbered text in a `ref` (§4.1), not only in a unit.
-
-   **What other standards do:**
-   - USFM marks such canonical titles with `\d` before `\v 1`, and has no verse 0.
-   - OSIS uses `<title type="psalm" canonical="true">`.
-   - Bible software commonly addresses such text as verse 0 (`PSA 3:0`).
-
-   **Options:**
-   - (a) Keep verse `0`, as now, for units and refs alike.
-   - (b) A reserved marker, e.g. `btu:bar.6.d` and ref `6:d` (after USFM's `\d`).
-   - (c) Treat the text as the first part of the following verse (`btu:bar.6.1.1`). This follows the Septuagint and NABRE, but not the Nova Vulgata.
+- [#2](https://github.com/CatholicOS/cbtudr/issues/2): check the book abbreviations (§2.1) against the printed Nova Vulgata, and decide whether to keep its contractions (`Il`, `Ids`, `Apc`).
+- [#3](https://github.com/CatholicOS/cbtudr/issues/3): edition identifiers, through a Common Bible Edition Data Repository (CBEDR) with cross-references to the identifiers already in use.
+- [#4](https://github.com/CatholicOS/cbtudr/issues/4): how to identify unnumbered text, such as Bar 6:0 and the Psalm superscriptions.
