@@ -159,7 +159,7 @@ Rules:
 
 ### 4.1 Fields
 
-- **`ref`** is the edition's own verse reference, `chapter ":" verse [segment] ["@" tradition]`. For example `10:18a`, or `1:1a@GREEK` in an edition that prints both texts of Esther.
+- **`ref`** is the edition's own verse reference, `chapter ":" verse [segment] ["#" part] ["@" tradition]`. For example `10:18a`, or `1:1a@GREEK` in an edition that prints both texts of Esther. `#n` numbers the second and later parts of a verse an edition prints in parts without letters: NABRE prints Job 10:1 in two parts, `10:1` and `10:1#2`.
 - **`units`** is an ordered list of units. A verse may cover several units, and may cross a Nova Vulgata verse or chapter boundary.
 - **`kind`:**
   - `same` means the same text, re-divided or renumbered.

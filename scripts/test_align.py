@@ -112,6 +112,15 @@ class Alignment(unittest.TestCase):
         self.assertEqual(stretches[0]["uncovered"], ["btu:gn.5.3"])
 
 
+class MissingVectors(unittest.TestCase):
+    def test_a_verse_without_a_vector_is_no_evidence(self):
+        vs = [verse(5, 1, dim=1), verse(5, 2), verse(5, 3, dim=3)]
+        us = [unit("tb", 5, 1, dim=1), unit("tb", 5, 2), unit("tb", 5, 3, dim=3)]
+        groups = align_stretch(vs, us)
+        self.assertIn(([0], [0], 1.0), groups)
+        self.assertIn(([2], [2], 1.0), groups)
+
+
 class Band(unittest.TestCase):
     def test_a_long_stretch_is_aligned_within_a_band(self):
         import random, time

@@ -59,7 +59,9 @@ def hebrew_psalm(chapter, verse, edition):
 
 
 def ref_of(v):
-    return f"{v['chapter']}:{v['label']}" + (f"@{v['tradition']}" if v.get("tradition") else "")
+    """The verse's ref: chapter:label, then #n for the n-th unlettered part of a verse printed in parts, then @TRADITION."""
+    part = f"#{v['part']}" if v.get("part", 1) > 1 else ""
+    return f"{v['chapter']}:{v['label']}{part}" + (f"@{v['tradition']}" if v.get("tradition") else "")
 
 
 def _candidate(v, psalms, edition):
@@ -120,9 +122,11 @@ def rule_pass(verses, units, psalms="hebrew", edition=""):
 
 
 def _unit(vectors):
-    s = np.sum(vectors, axis=0) if len(vectors) else None
-    if s is None:
+    """The normalized sum of a group's vectors; verses or units without a vector add nothing (no evidence)."""
+    present = [v for v in vectors if v is not None]
+    if not present:
         return None
+    s = np.sum(present, axis=0)
     n = np.linalg.norm(s)
     return s / n if n else None
 
@@ -137,9 +141,11 @@ def align_stretch(verses, units, extra=0.15, gap=0.30, band=None):
     Only cells within `band` of the diagonal are considered (by default, the difference in length plus 12),
     so a long stretch (a whole book of Sirach) is aligned in seconds."""
     def vec(x):
-        v = np.asarray(x["vec"], dtype=np.float64) if x.get("vec") is not None else None
-        n = np.linalg.norm(v) if v is not None else 0
-        return v / n if n else np.zeros(1)
+        if x.get("vec") is None:
+            return None
+        v = np.asarray(x["vec"], dtype=np.float64)
+        n = np.linalg.norm(v)
+        return v / n if n else None
 
     A = [vec(v) for v in verses]
     B = [vec(u) for u in units]
