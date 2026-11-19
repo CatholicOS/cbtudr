@@ -125,6 +125,11 @@ class Maps(unittest.TestCase):
                      verse("5:5", "btu:tb.5.4", "btu:tb.5.4+1", status="reviewed")])
         self.assertTrue(any("more than once" in e for e in check_map(mp, self.TREE, BOOK)))
 
+    def test_a_reviewed_verse_may_have_no_counterpart(self):
+        mp = self.m([verse("5:3", "btu:tb.5.3"), {"ref": "5:4", "units": [], "kind": "same", "status": "reviewed"}],
+                    absent=["btu:tb.5.4", "btu:tb.5.4+1"])
+        self.assertEqual(check_map(mp, self.TREE, BOOK), [])
+
     def test_bad_kind_status_or_ref_are_errors(self):
         mp = self.m([{"ref": "5", "units": ["btu:tb.5.3"], "kind": "similar", "status": "guess"}])
         errs = check_map(mp, self.TREE, BOOK)

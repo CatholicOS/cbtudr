@@ -116,8 +116,8 @@ def check_map(data, units, book):
             if ids:
                 errs.append(f"{ref}: an omitted verse has no units")
             continue
-        if not ids:
-            errs.append(f"{ref}: no units (mark it omitted if the edition prints no text)")
+        if not ids and v.get("status") != "reviewed":
+            errs.append(f"{ref}: no units (mark it omitted if the edition prints no text, or review it as without counterpart)")
         if v.get("kind") not in KINDS:
             errs.append(f"{ref}: kind must be one of {sorted(KINDS)}")
         if v.get("status") not in STATUSES:

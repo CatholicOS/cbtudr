@@ -169,6 +169,7 @@ Rules:
   - `draft` means proposed by a tool, not yet reviewed.
   - `reviewed` means checked by a reviewer. Who reviewed it, and when, is in the git history.
 - **`omitted: true`** marks a verse number the edition prints without text. Such a verse has no units.
+- **No counterpart.** A reviewed verse with `units: []` is text the units lack. Each such verse is a candidate for a unit of its own (`+n`, §3 rule 3).
 - **`primary`** names the tradition whose run must cover the whole book, when the edition prints more than one (Esther: `GREEK`).
 - **`absent`** lists the units the edition does not have.
 
