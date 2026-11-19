@@ -39,7 +39,7 @@ The full design, the identifier grammar and the open questions for the committee
 
 ## Repository contents
 
-- [`data/books.json`](data/books.json): the 73 books of the Catholic canon. Each has its number, identifier segment, OSIS code, and Latin and English names.
+- [`data/books.json`](data/books.json): the 73 books of the Catholic canon. Each has its number, its Latin abbreviation and identifier segment (as the Holy See prints them), its OSIS and USFM codes, and its Latin and English names.
 - [`data/units/`](data/units/): one file per book, listing the book's units in Nova Vulgata order.
 - [`data/editions.json`](data/editions.json) and [`data/maps/<edition>/`](data/maps/): each mapped edition, and the units each of its verses contains.
 - [`registry/books.md`](registry/books.md): the books as a human-readable table, with their unit counts.

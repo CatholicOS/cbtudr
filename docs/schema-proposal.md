@@ -43,7 +43,7 @@ Each Nova Vulgata verse is one unit to begin with. Units are then:
 
 The seed is the verse structure (numbers only, no text) of BibleGet's NVBSE edition, compared chapter by chapter with vatican.va (`scripts/check_vatican.py`). Where the two differ, `scripts/nova_vulgata_corrections.json` records how, and the seed follows vatican.va:
 
-- **Verses printed in brackets, without text.** The Nova Vulgata keeps the number of a verse the critical text omits and prints it in brackets: "… ab omni malo. (16 17) 18 Super scutum …" (Sir 29). There are 31 such numbers, for example 1 Rg 15:6, Mt 17:21, Act 8:37, and twelve in Sirach.
+- **Verses printed in brackets, without text.** The Nova Vulgata keeps the number of a verse the critical text omits and prints it in brackets: "… ab omni malo. (16 17) 18 Super scutum …" (Sir 29). There are 31 such numbers, for example 1 Reg 15:6, Mt 17:21, Act 8:37, and twelve in Sirach.
   - Each is a unit marked `"nv_omitted": true`.
   - The Nova Vulgata's own mapping lists it as absent.
   - Editions that print text there (the Clementine Vulgate, the Douay-Rheims) map that text to it.
@@ -95,12 +95,28 @@ The identifier records **where the unit was first created**, for readability. It
 `data/books.json` lists the 73 books of the Catholic canon. Each record carries:
 
 - its **number**, 1-73, in the order of the printed Nova Vulgata, with 1-2 Maccabees after Esther (vatican.va lists them at the end of the Old Testament);
-- its **segment**: a short Latin abbreviation, lowercased with no spaces (`gn`, `1sm`, `1par`, `tb`, `est`, `iob`, `ps`, `eccle`, `sir`, `io`, `ap`);
-- its **OSIS** code;
+- **`abbr_la`**: the book's Latin abbreviation as the Holy See prints it (`1 Sam`, `Eccli`, `Apc`), and **`segment`**, the same lowercased with no spaces (`1sam`, `eccli`, `apc`), which is the book's part of every identifier;
+- its **OSIS** 2.1.1 and **USFM** 3 codes;
 - its **Latin title**, as on vatican.va;
 - its **English name**.
 
-The segments follow the abbreviations customary in the Latin liturgical books; they are to be checked against the printed Nova Vulgata (§9).
+**Source of the abbreviations.** The printed Nova Vulgata's own list is not online. The abbreviations are taken from the list the Holy See publishes for the Latin *Catechismus Catholicae Ecclesiae*, [*Abbreviationes pro Sacra Scriptura*](https://www.vatican.va/archive/catechism_lt/abbrev_lt.htm), which gives the same Latin book titles as the Nova Vulgata. The Nova Vulgata's own *Praenotanda* cite books with the same abbreviations ("cfr. Eccli 12, 15", "Dt 32, 41", "Gn 19, 28").
+
+The list abbreviates some names by contraction, keeping their first and last letters: `Il` (I*oe*l), `Apc` (Ap*o*c*alypsis*), `Ids` (I*u*d*a*s, Jude). The registry follows it as printed.
+
+The list also has misprints, which are being reported to the Dicastery for Communication; the registry does not follow them:
+
+- `3 Io` is glossed *Epistula II Ioannis* (for III).
+- Some titles are misspelt (*Deutoronomii*, *Nahemiae*, *Liher Iudith*). The registry's titles are those of the Nova Vulgata on vatican.va.
+
+**USFM and OSIS divide some books differently.** The codes are the Catholic book's; consumers converting to or from USFM or OSIS need to know four differences:
+
+- **Baruch 6**, the Letter of Jeremiah, is a book of its own in both: USFM `LJE`, OSIS `EpJer`.
+- **The Greek parts of Esther** are USFM `ESG` and OSIS `AddEsth`.
+- **The Greek parts of Daniel:**
+  - OSIS has separate books: `PrAzar` (Dn 3:24-90), `Sus` (Dn 13) and `Bel` (Dn 14);
+  - USFM has `DAG` (Greek Daniel), `S3Y`, `SUS` and `BEL`.
+- **The Psalms** have the same code, but different versifications.
 
 ## 3. Units
 
@@ -204,6 +220,8 @@ The licences follow the proposal open in every CDCF registry (e.g. [CatholicOS/c
 
 ## 9. Open questions
 
-1. **Book segments.** Should they follow the Nova Vulgata's own list of abbreviations? This needs checking against the printed edition; vatican.va does not publish the list.
-2. **Edition identifiers.** Should a Bible editions registry exist, with its own prefix, for the edition slugs used here?
-3. **Unnumbered text.** Bar 6:0 is a unit numbered 0. Should unnumbered text (prescripts, titles) get a grammar of its own?
+The questions for the committee are tracked as issues:
+
+- [#2](https://github.com/CatholicOS/cbtudr/issues/2): check the book abbreviations (§2.1) against the printed Nova Vulgata, and decide whether to keep its contractions (`Il`, `Ids`, `Apc`).
+- [#3](https://github.com/CatholicOS/cbtudr/issues/3): edition identifiers, through a Common Bible Edition Data Repository (CBEDR) with cross-references to the identifiers already in use.
+- [#4](https://github.com/CatholicOS/cbtudr/issues/4): how to identify unnumbered text, such as Bar 6:0 and the Psalm superscriptions.
