@@ -1,0 +1,194 @@
+{
+ "about": "Where BibleGet's NVBSE verse structure differs from the Nova Vulgata on vatican.va (checked 2026-11-19). omitted: verse numbers printed in brackets without text; missing: verses with text the source lacks; order: the printed order of a chapter's verses.",
+ "books": {
+  "1rg": {
+   "omitted": [
+    {
+     "chapter": 15,
+     "verse": "6"
+    }
+   ]
+  },
+  "sir": {
+   "omitted": [
+    {
+     "chapter": 1,
+     "verse": "19"
+    },
+    {
+     "chapter": 19,
+     "verse": "6"
+    },
+    {
+     "chapter": 22,
+     "verse": "23"
+    },
+    {
+     "chapter": 27,
+     "verse": "3"
+    },
+    {
+     "chapter": 29,
+     "verse": "16"
+    },
+    {
+     "chapter": 29,
+     "verse": "17"
+    },
+    {
+     "chapter": 29,
+     "verse": "21"
+    },
+    {
+     "chapter": 29,
+     "verse": "23"
+    },
+    {
+     "chapter": 32,
+     "verse": "23"
+    },
+    {
+     "chapter": 34,
+     "verse": "11"
+    },
+    {
+     "chapter": 35,
+     "verse": "3"
+    },
+    {
+     "chapter": 43,
+     "verse": "33"
+    }
+   ],
+   "missing": [
+    {
+     "chapter": 1,
+     "verse": "20"
+    }
+   ]
+  },
+  "ez": {
+   "omitted": [
+    {
+     "chapter": 40,
+     "verse": "14"
+    },
+    {
+     "chapter": 40,
+     "verse": "30"
+    }
+   ],
+   "missing": [
+    {
+     "chapter": 40,
+     "verse": "15"
+    }
+   ],
+   "order": [
+    {
+     "chapter": 40,
+     "verses": [
+      "42a",
+      "43a",
+      "42b",
+      "43b"
+     ]
+    }
+   ]
+  },
+  "mt": {
+   "omitted": [
+    {
+     "chapter": 17,
+     "verse": "21"
+    },
+    {
+     "chapter": 18,
+     "verse": "11"
+    },
+    {
+     "chapter": 23,
+     "verse": "14"
+    }
+   ]
+  },
+  "mc": {
+   "omitted": [
+    {
+     "chapter": 7,
+     "verse": "16"
+    },
+    {
+     "chapter": 9,
+     "verse": "44"
+    },
+    {
+     "chapter": 9,
+     "verse": "46"
+    },
+    {
+     "chapter": 11,
+     "verse": "26"
+    },
+    {
+     "chapter": 15,
+     "verse": "28"
+    }
+   ]
+  },
+  "lc": {
+   "omitted": [
+    {
+     "chapter": 17,
+     "verse": "36"
+    },
+    {
+     "chapter": 23,
+     "verse": "17"
+    }
+   ]
+  },
+  "io": {
+   "omitted": [
+    {
+     "chapter": 5,
+     "verse": "4"
+    }
+   ]
+  },
+  "act": {
+   "omitted": [
+    {
+     "chapter": 8,
+     "verse": "37"
+    },
+    {
+     "chapter": 15,
+     "verse": "34"
+    },
+    {
+     "chapter": 24,
+     "verse": "7"
+    },
+    {
+     "chapter": 28,
+     "verse": "29"
+    }
+   ],
+   "missing": [
+    {
+     "chapter": 24,
+     "verse": "8"
+    }
+   ]
+  },
+  "rom": {
+   "omitted": [
+    {
+     "chapter": 16,
+     "verse": "24"
+    }
+   ]
+  }
+ }
+}

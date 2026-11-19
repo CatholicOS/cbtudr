@@ -1,0 +1,12 @@
+{
+  "editions": [
+    {
+      "slug": "nvbse",
+      "title": "Nova Vulgata Bibliorum Sacrorum Editio",
+      "language": "la",
+      "year": 1986,
+      "versification": "nova-vulgata",
+      "source": "BibleGet NVBSE verse structure, checked against vatican.va"
+    }
+  ]
+}
