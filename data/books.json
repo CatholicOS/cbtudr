@@ -70,6 +70,6 @@
   {"number": 69, "segment": "1io", "abbr_la": "1 Io", "osis": "1John", "usfm": "1JN", "label_la": "Epistula I Ioannis", "label_en": "1 John", "testament": "NT"},
   {"number": 70, "segment": "2io", "abbr_la": "2 Io", "osis": "2John", "usfm": "2JN", "label_la": "Epistula II Ioannis", "label_en": "2 John", "testament": "NT"},
   {"number": 71, "segment": "3io", "abbr_la": "3 Io", "osis": "3John", "usfm": "3JN", "label_la": "Epistula III Ioannis", "label_en": "3 John", "testament": "NT"},
-  {"number": 72, "segment": "iud", "abbr_la": "Iud", "osis": "Jude", "usfm": "JUD", "label_la": "Epistula Iudae", "label_en": "Jude", "testament": "NT"},
+  {"number": 72, "segment": "ids", "abbr_la": "Ids", "osis": "Jude", "usfm": "JUD", "label_la": "Epistula Iudae", "label_en": "Jude", "testament": "NT"},
   {"number": 73, "segment": "apc", "abbr_la": "Apc", "osis": "Rev", "usfm": "REV", "label_la": "Apocalypsis Ioannis", "label_en": "Revelation", "testament": "NT"}
 ]}

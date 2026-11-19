@@ -102,11 +102,12 @@ The identifier records **where the unit was first created**, for readability. It
 
 **Source of the abbreviations.** The printed Nova Vulgata's own list is not online. The abbreviations are taken from the list the Holy See publishes for the Latin *Catechismus Catholicae Ecclesiae*, [*Abbreviationes pro Sacra Scriptura*](https://www.vatican.va/archive/catechism_lt/abbrev_lt.htm), which gives the same Latin book titles as the Nova Vulgata. The Nova Vulgata's own *Praenotanda* cite books with the same abbreviations ("cfr. Eccli 12, 15", "Dt 32, 41", "Gn 19, 28").
 
-Three corrections were made to that list's obvious misprints, and are open for review (§9):
+The list abbreviates some names by contraction, keeping their first and last letters: `Il` (I*oe*l), `Apc` (Ap*o*c*alypsis*), `Ids` (I*u*d*a*s, Jude). The registry follows it as printed.
 
-- **Jude** is printed there as `Ids`; the registry uses `Iud` (*Epistula Iudae*).
-- `3 Io` is glossed *Epistula II Ioannis* (meaning III).
-- Some titles are misspelt (*Deutoronomii*, *Nahemiae*, *Liher Iudith*); the registry's titles are those of the Nova Vulgata on vatican.va.
+The list also has misprints, which are reported to the Dicastery for Communication; the registry does not follow them:
+
+- `3 Io` is glossed *Epistula II Ioannis* (for III).
+- Some titles are misspelt (*Deutoronomii*, *Nahemiae*, *Liher Iudith*). The registry's titles are those of the Nova Vulgata on vatican.va.
 
 **USFM and OSIS divide some books differently.** The codes are the Catholic book's; consumers converting to or from USFM or OSIS need to know four differences:
 
@@ -221,7 +222,7 @@ The licences follow the proposal open in every CDCF registry (e.g. [CatholicOS/c
 
 1. **Book abbreviations.**
    - Do the Holy See's Latin abbreviations (§2.1) match the printed Nova Vulgata's own list?
-   - Are the three corrections right: `Iud` for the printed `Ids`, `3 Io` as the Third Letter, and the titles?
+   - Is following the contractions as printed (`Il`, `Ids`, `Apc`) right, rather than the forms common elsewhere (`Ioel`, `Iud`, `Ap`)?
 2. **Edition identifiers.** The edition slugs here (`nvbse`, `vgcl`…) are local to this registry. A separate registry, **CBEDR** (Common Bible Edition Data Repository), is proposed to give editions canonical identifiers. It would also hold cross-references to the identifiers others already use:
    - the Digital Bible Library;
    - Bible Brain;
