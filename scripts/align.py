@@ -131,8 +131,11 @@ def _cos(a, b):
     return float(a @ b) if a is not None and b is not None else 0.0
 
 
-def align_stretch(verses, units, extra=0.15, gap=0.30):
-    """[(verse indexes, unit indexes, similarity)] in reading order, maximizing the total score."""
+def align_stretch(verses, units, extra=0.15, gap=0.30, band=None):
+    """[(verse indexes, unit indexes, similarity)] in reading order, maximizing the total score.
+
+    Only cells within `band` of the diagonal are considered (by default, the difference in length plus 12),
+    so a long stretch (a whole book of Sirach) is aligned in seconds."""
     def vec(x):
         v = np.asarray(x["vec"], dtype=np.float64) if x.get("vec") is not None else None
         n = np.linalg.norm(v) if v is not None else 0
@@ -141,9 +144,11 @@ def align_stretch(verses, units, extra=0.15, gap=0.30):
     A = [vec(v) for v in verses]
     B = [vec(u) for u in units]
     n, m = len(A), len(B)
+    width = band if band is not None else abs(n - m) + 12
     best = {(0, 0): (0.0, None, None)}
     for i in range(n + 1):
-        for j in range(m + 1):
+        centre = i * m / n if n else 0
+        for j in range(max(0, int(centre - width)), min(m, int(centre + width)) + 1):
             if (i, j) == (0, 0):
                 continue
             options = []

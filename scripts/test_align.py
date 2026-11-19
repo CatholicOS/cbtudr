@@ -112,5 +112,27 @@ class Alignment(unittest.TestCase):
         self.assertEqual(stretches[0]["uncovered"], ["btu:gn.5.3"])
 
 
+class Band(unittest.TestCase):
+    def test_a_long_stretch_is_aligned_within_a_band(self):
+        import random, time
+        random.seed(1)
+        dim = 400
+        def rv():
+            return [random.gauss(0, 1) for _ in range(dim)]
+        us = [{"id": f"btu:eccli.1.{n}", "chapter": 1, "label": str(n), "vec": rv()} for n in range(1, 401)]
+        # The edition joins units 100-101 into one verse: every other verse matches its unit.
+        vs = []
+        for n, u in enumerate(us, start=1):
+            if n == 101:
+                vs[-1]["vec"] = [a + b for a, b in zip(vs[-1]["vec"], u["vec"])]
+                continue
+            vs.append({"book": 28, "chapter": 1, "label": str(len(vs) + 1), "tradition": "", "vec": list(u["vec"]), "length": 10})
+        t = time.time()
+        groups = align_stretch(vs, us)
+        self.assertLess(time.time() - t, 20)
+        self.assertIn(([99], [99, 100]), [(g, h) for g, h, _ in groups])
+        self.assertEqual(sum(len(h) for _, h, _ in groups), 400)
+
+
 if __name__ == "__main__":
     unittest.main()
