@@ -7,6 +7,42 @@
       "year": 1986,
       "versification": "nova-vulgata",
       "source": "BibleGet NVBSE verse structure, checked against vatican.va"
+    },
+    {
+      "slug": "nabre",
+      "title": "New American Bible, Revised Edition",
+      "language": "en",
+      "year": 2011
+    },
+    {
+      "slug": "cei2008",
+      "title": "La Sacra Bibbia, Conferenza Episcopale Italiana",
+      "language": "it",
+      "year": 2008
+    },
+    {
+      "slug": "vgcl",
+      "title": "Biblia Sacra Vulgatae Editionis (Clementine Vulgate)",
+      "language": "la",
+      "year": 1592
+    },
+    {
+      "slug": "drb",
+      "title": "Douay-Rheims Bible (Challoner revision)",
+      "language": "en",
+      "year": 1752
+    },
+    {
+      "slug": "blpd",
+      "title": "El Libro del Pueblo de Dios",
+      "language": "es",
+      "year": 2015
+    },
+    {
+      "slug": "luzzi",
+      "title": "La Sacra Bibbia, Riveduta (Luzzi)",
+      "language": "it",
+      "year": 1924
     }
   ]
 }
