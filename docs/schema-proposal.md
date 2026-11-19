@@ -43,7 +43,7 @@ Each Nova Vulgata verse is one unit to begin with. Units are then:
 
 The seed is the verse structure (numbers only, no text) of BibleGet's NVBSE edition, compared chapter by chapter with vatican.va (`scripts/check_vatican.py`). Where the two differ, `scripts/nova_vulgata_corrections.json` records how, and the seed follows vatican.va:
 
-- **Verses printed in brackets, without text.** The Nova Vulgata keeps the number of a verse the critical text omits and prints it in brackets: "… ab omni malo. (16 17) 18 Super scutum …" (Sir 29). There are 31 such numbers, for example 1 Rg 15:6, Mt 17:21, Act 8:37, and twelve in Sirach.
+- **Verses printed in brackets, without text.** The Nova Vulgata keeps the number of a verse the critical text omits and prints it in brackets: "… ab omni malo. (16 17) 18 Super scutum …" (Sir 29). There are 31 such numbers, for example 1 Reg 15:6, Mt 17:21, Act 8:37, and twelve in Sirach.
   - Each is a unit marked `"nv_omitted": true`.
   - The Nova Vulgata's own mapping lists it as absent.
   - Editions that print text there (the Clementine Vulgate, the Douay-Rheims) map that text to it.
@@ -95,12 +95,27 @@ The identifier records **where the unit was first created**, for readability. It
 `data/books.json` lists the 73 books of the Catholic canon. Each record carries:
 
 - its **number**, 1-73, in the order of the printed Nova Vulgata, with 1-2 Maccabees after Esther (vatican.va lists them at the end of the Old Testament);
-- its **segment**: a short Latin abbreviation, lowercased with no spaces (`gn`, `1sm`, `1par`, `tb`, `est`, `iob`, `ps`, `eccle`, `sir`, `io`, `ap`);
-- its **OSIS** code;
+- **`abbr_la`**: the book's Latin abbreviation as the Holy See prints it (`1 Sam`, `Eccli`, `Apc`), and **`segment`**, the same lowercased with no spaces (`1sam`, `eccli`, `apc`), which is the book's part of every identifier;
+- its **OSIS** 2.1.1 and **USFM** 3 codes;
 - its **Latin title**, as on vatican.va;
 - its **English name**.
 
-The segments follow the abbreviations customary in the Latin liturgical books; they are to be checked against the printed Nova Vulgata (§9).
+**Source of the abbreviations.** The printed Nova Vulgata's own list is not online. The abbreviations are taken from the list the Holy See publishes for the Latin *Catechismus Catholicae Ecclesiae*, [*Abbreviationes pro Sacra Scriptura*](https://www.vatican.va/archive/catechism_lt/abbrev_lt.htm), which gives the same Latin book titles as the Nova Vulgata. The Nova Vulgata's own *Praenotanda* cite books with the same abbreviations ("cfr. Eccli 12, 15", "Dt 32, 41", "Gn 19, 28").
+
+Three corrections were made to that list's obvious misprints, and are open for review (§9):
+
+- **Jude** is printed there as `Ids`; the registry uses `Iud` (*Epistula Iudae*).
+- `3 Io` is glossed *Epistula II Ioannis* (meaning III).
+- Some titles are misspelt (*Deutoronomii*, *Nahemiae*, *Liher Iudith*); the registry's titles are those of the Nova Vulgata on vatican.va.
+
+**USFM and OSIS divide some books differently.** The codes are the Catholic book's; consumers converting to or from USFM or OSIS need to know four differences:
+
+- **Baruch 6**, the Letter of Jeremiah, is a book of its own in both: USFM `LJE`, OSIS `EpJer`.
+- **The Greek parts of Esther** are USFM `ESG` and OSIS `AddEsth`.
+- **The Greek parts of Daniel:**
+  - OSIS has separate books: `PrAzar` (Dn 3:24-90), `Sus` (Dn 13) and `Bel` (Dn 14);
+  - USFM has `DAG` (Greek Daniel), `S3Y`, `SUS` and `BEL`.
+- **The Psalms** have the same code, but different versifications.
 
 ## 3. Units
 
@@ -204,6 +219,36 @@ The licences follow the proposal open in every CDCF registry (e.g. [CatholicOS/c
 
 ## 9. Open questions
 
-1. **Book segments.** Should they follow the Nova Vulgata's own list of abbreviations? This needs checking against the printed edition; vatican.va does not publish the list.
-2. **Edition identifiers.** Should a Bible editions registry exist, with its own prefix, for the edition slugs used here?
-3. **Unnumbered text.** Bar 6:0 is a unit numbered 0. Should unnumbered text (prescripts, titles) get a grammar of its own?
+1. **Book abbreviations.**
+   - Do the Holy See's Latin abbreviations (§2.1) match the printed Nova Vulgata's own list?
+   - Are the three corrections right: `Iud` for the printed `Ids`, `3 Io` as the Third Letter, and the titles?
+2. **Edition identifiers.** The edition slugs here (`nvbse`, `vgcl`…) are local to this registry. A separate registry, **CBEDR** (Common Bible Edition Data Repository), is proposed to give editions canonical identifiers. It would also hold cross-references to the identifiers others already use:
+   - the Digital Bible Library;
+   - Bible Brain;
+   - CrossWire SWORD modules;
+   - eBible.org;
+   - Wikidata;
+   - the BibleGet API.
+3. **Unnumbered text.** How should a unit of text printed without a verse number be identified?
+
+   **The case.** The Nova Vulgata prints the prescript of the Letter of Jeremiah ("Exemplum epistulae, quam misit Ieremias …") before Bar 6:1, without a number. Here it is `btu:bar.6.0`. It is part of the biblical text: in the Septuagint it is the letter's first verse.
+
+   **How editions treat it:**
+
+   | Edition | Treatment |
+   |---|---|
+   | The Nova Vulgata, the *Libro del Pueblo de Dios* | Unnumbered text before 6:1 |
+   | The Clementine Vulgate, the CEI 2008 | A heading above 6:1 |
+   | NABRE, RSV, NRSV | A numbered verse, 6:1; the rest of their chapter is numbered one ahead of the Nova Vulgata |
+
+   **The same problem elsewhere.** The Psalm superscriptions are verse 1 in the Nova Vulgata, but unnumbered in editions of the English tradition (KJV, Luzzi). Mapping such editions needs a way to name an edition's unnumbered text in a `ref` (§4.1), not only in a unit.
+
+   **What other standards do:**
+   - USFM marks such canonical titles with `\d` before `\v 1`, and has no verse 0.
+   - OSIS uses `<title type="psalm" canonical="true">`.
+   - Bible software commonly addresses such text as verse 0 (`PSA 3:0`).
+
+   **Options:**
+   - (a) Keep verse `0`, as now, for units and refs alike.
+   - (b) A reserved marker, e.g. `btu:bar.6.d` and ref `6:d` (after USFM's `\d`).
+   - (c) Treat the text as the first part of the following verse (`btu:bar.6.1.1`). This follows the Septuagint and NABRE, but not the Nova Vulgata.

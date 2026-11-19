@@ -1,7 +1,7 @@
 {
  "about": "Where BibleGet's NVBSE verse structure differs from the Nova Vulgata on vatican.va (checked 2026-11-19). omitted: verse numbers printed in brackets without text; missing: verses with text the source lacks; order: the printed order of a chapter's verses.",
  "books": {
-  "1rg": {
+  "1reg": {
    "omitted": [
     {
      "chapter": 15,
@@ -9,7 +9,7 @@
     }
    ]
   },
-  "sir": {
+  "eccli": {
    "omitted": [
     {
      "chapter": 1,
