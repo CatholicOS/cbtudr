@@ -109,6 +109,25 @@ class Fixture(unittest.TestCase):
         self.assertEqual([f"{r['chapter']}:{r['verse']}{r['verse_segment']}" for r in aligned], ["5:1", "5:2a"])
         self.assertEqual(copies, {"5:2a": "14:16"})
 
+    def test_esthers_greek_text_of_the_hebrew_verses_corresponds(self):
+        # An edition printing both texts: its Greek run's unlettered verses are the Septuagint's version of the
+        # Masoretic verses the units are; its lettered additions are the same text; its Hebrew run is the same text.
+        from draft_alignment import kind_for
+        self.assertEqual(kind_for("est", "GREEK", "1:1@GREEK", "same", both=True), "corresponding")
+        self.assertEqual(kind_for("est", "GREEK", "1:1a@GREEK", "same", both=True), "same")
+        self.assertEqual(kind_for("est", "HEBREW", "1:1@HEBREW", "same", both=True), "same")
+        # Without a Hebrew run (the Vulgate's Esther), the book's own kind stands.
+        self.assertEqual(kind_for("est", "GREEK", "11:2@GREEK", "corresponding", both=False), "corresponding")
+        self.assertEqual(kind_for("tb", "", "5:1", "same", both=False), "same")
+
+    def test_only_the_books_asked_for_are_redrafted(self):
+        self.run_draft()
+        gn = self.tmp / "data/maps/test/01-gn.json"
+        gn.write_text(gn.read_text().replace('"status": "rule"', '"status": "reviewed"', 1))
+        reviewed = gn.read_text()
+        self.run_draft(only={"tb"})
+        self.assertEqual(gn.read_text(), reviewed)
+
     def test_corresponding_books_are_drafted_as_corresponding(self):
         self.run_draft(corresponding={"tb"})
         mp = json.loads((self.tmp / "data/maps/test/17-tb.json").read_text())

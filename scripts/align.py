@@ -86,7 +86,10 @@ def _anchors(verses, units, psalms, edition):
     for c, js in by_chapter.items():
         vs = in_chapter.get(c, [])
         labels = [cand[i][1] for i in vs]
-        for pool in (js, [j for j in js if not units[j].get("nv_omitted")]):
+        # The units as they are; without those the Nova Vulgata prints without text; and without the lettered
+        # additions too, for a text that lacks them (Esther's Hebrew text: its 1:1 is the unit 1:1, not 1:1a).
+        plain = [j for j in js if not re.search(r"[a-z]", units[j]["label"])]
+        for pool in (js, [j for j in js if not units[j].get("nv_omitted")], plain, [j for j in plain if not units[j].get("nv_omitted")]):
             if labels and labels == [units[j]["label"] for j in pool]:
                 match.update(zip(vs, pool))
                 break
@@ -106,8 +109,8 @@ def rule_pass(verses, units, psalms="hebrew", edition=""):
 
     def close(upto):
         between = [j for j in range(last + 1, upto) if j not in anchors.values()]
-        # Units the Nova Vulgata prints without text, with no edition verse beside them, are simply absent.
-        if pending or any(not units[j].get("nv_omitted") for j in between):
+        # Units with no edition verse beside them carry no draft: the map's `absent` lists them.
+        if pending:
             between = [units[j]["id"] for j in between]
             stretches.append({"verses": list(pending), "units": between})
 
