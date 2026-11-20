@@ -14,6 +14,8 @@ Where the source differs from the Nova Vulgata on vatican.va, scripts/nova_vulga
 and the Nova Vulgata governs:
 - `omitted`: verse numbers the Nova Vulgata prints in brackets, without text (Mt 17:21). Each becomes a unit
   marked `nv_omitted`, which the Nova Vulgata's own mapping lists as absent; other editions map their text to it.
+  Since BibleGet's migration 055 the export has a row for each of them (empty text, `omitted`): such a row is
+  marked, not added a second time.
 - `missing`: Nova Vulgata verses the source lacks. Each becomes a unit in its place.
 - `order`: a chapter's verses in the Nova Vulgata's printed order, where the source orders them differently.
 
@@ -36,6 +38,12 @@ def _apply(rows, fixes, primary):
     rows = [dict(r) for r in rows if r["text_tradition"] == primary]
     added = [(f, True) for f in fixes.get("omitted", [])] + [(f, False) for f in fixes.get("missing", [])]
     for f, omitted in sorted(added, key=lambda x: (x[0]["chapter"], _number(x[0]["verse"]))):
+        present = [r for r in rows if int(r["chapter"]) == f["chapter"] and r["verse"] == f["verse"] and not r["verse_segment"]]
+        if present:
+            if not omitted:
+                raise ValueError(f"{f['chapter']}:{f['verse']} is listed as missing, but the source has it")
+            present[0]["_omitted"] = True
+            continue
         new = {"chapter": str(f["chapter"]), "verse": f["verse"], "verse_segment": "", "text_tradition": primary, "_omitted": omitted}
         at = 0
         for i, r in enumerate(rows):
