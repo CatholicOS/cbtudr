@@ -13,7 +13,8 @@ ID_RE = re.compile(
     r"^btu:(?P<book>[a-z0-9]+)\.(?P<chapter>[1-9]\d*)\.(?P<verse>(?:0|[1-9]\d*)[a-z]*)"
     r"(?P<parts>(?:\.[1-9]\d*)*)(?:\+(?P<extra>[1-9]\d*)(?P<xparts>(?:\.[1-9]\d*)*))?$"
 )
-REF_RE = re.compile(r"^[1-9]\d*:(?:0|[1-9]\d*)[a-z]*(?:@[A-Z]+)?$")
+# chapter:verse, the edition's own letters, #n for the n-th unlettered part of a verse printed in parts, @TRADITION.
+REF_RE = re.compile(r"^[1-9]\d*:(?:0|[1-9]\d*)[a-z]*(?:#(?:[2-9]|[1-9]\d+))?(?:@[A-Z]+)?$")
 KINDS = {"same", "corresponding"}
 STATUSES = {"rule", "draft", "reviewed"}
 
@@ -116,7 +117,7 @@ def check_map(data, units, book):
             if ids:
                 errs.append(f"{ref}: an omitted verse has no units")
             continue
-        if not ids and v.get("status") != "reviewed":
+        if not ids and v.get("status") not in ("draft", "reviewed"):
             errs.append(f"{ref}: no units (mark it omitted if the edition prints no text, or review it as without counterpart)")
         if v.get("kind") not in KINDS:
             errs.append(f"{ref}: kind must be one of {sorted(KINDS)}")

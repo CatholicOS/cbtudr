@@ -75,6 +75,40 @@ class Fixture(unittest.TestCase):
         self.assertEqual(json.loads((self.tmp / "data/maps/test/01-gn.json").read_text())["verses"][0]["status"], "rule")
         self.assertEqual(validate(self.tmp), [])
 
+    def test_a_verse_printed_in_two_unlettered_parts_gets_numbered_refs(self):
+        with open(self.tmp / "struct.csv", "a", newline="") as f:
+            csv.writer(f).writerow([17, 14, 15, "", "", "f", "f"])
+        self.run_draft()
+        refs = [v["ref"] for v in json.loads((self.tmp / "data/maps/test/17-tb.json").read_text())["verses"]]
+        self.assertIn("14:15", refs)
+        self.assertIn("14:15#2", refs)
+        self.assertEqual(validate(self.tmp), [])
+
+    def test_vectors_are_matched_by_sort_order_when_given(self):
+        # The Vulgate's Greek additions to Esther are many rows numbered 1:1: only sort_order tells them apart.
+        from draft_alignment import read_vectors
+        path = self.tmp / "so.csv"
+        write_csv(path, ["book", "chapter", "verse", "verse_segment", "text_tradition", "sort_order", "labse"],
+                  [[19, 1, 1, "", "GREEK", 10, "[1.0, 0.0]"], [19, 1, 1, "", "GREEK", 11, "[0.0, 1.0]"]])
+        vecs = read_vectors(path)
+        self.assertEqual(vecs[("sort_order", "10")], [1.0, 0.0])
+        self.assertEqual(vecs[("sort_order", "11")], [0.0, 1.0])
+
+    def test_copies_placed_in_nova_vulgata_order_lend_their_links_to_the_rows_they_name(self):
+        # The Vulgate prints Tobit's (here: synthetic) addition as 14:16, after the book; the source also stores a copy
+        # in place, labelled 5:2a, whose alt_ref names 14:16. The copy is aligned; 14:16 gets its link; the copy is
+        # not in the edition's map.
+        from align import draft_links
+        from draft_alignment import fold_copies
+        rows = [
+            {"chapter": "5", "verse": "1", "verse_segment": "", "alt_ref": ""},
+            {"chapter": "5", "verse": "2", "verse_segment": "a", "alt_ref": "14:16"},
+            {"chapter": "14", "verse": "16", "verse_segment": "", "alt_ref": "14:16"},
+        ]
+        aligned, copies = fold_copies(rows)
+        self.assertEqual([f"{r['chapter']}:{r['verse']}{r['verse_segment']}" for r in aligned], ["5:1", "5:2a"])
+        self.assertEqual(copies, {"5:2a": "14:16"})
+
     def test_corresponding_books_are_drafted_as_corresponding(self):
         self.run_draft(corresponding={"tb"})
         mp = json.loads((self.tmp / "data/maps/test/17-tb.json").read_text())
