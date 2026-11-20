@@ -55,6 +55,18 @@ class Corrections(unittest.TestCase):
         self.assertEqual([u["id"] for u in units["units"]], ["btu:act.24.6", "btu:act.24.7", "btu:act.24.8", "btu:act.24.9"])
         self.assertEqual(mp["verses"][2], {"ref": "24:8", "units": ["btu:act.24.8"], "kind": "same", "status": "rule"})
 
+    def test_a_bracketed_verse_the_source_already_has_is_marked_not_added_again(self):
+        # BibleGet's NVBSE export has a row for each omitted verse since its migration 055.
+        fixes = {"omitted": [{"chapter": 9, "verse": "10"}, {"chapter": 9, "verse": "11"}]}
+        units, mp = seed_book("eccli", [row(9, 9), row(9, 10), row(9, 11), row(9, 12)], fixes)
+        self.assertEqual(units["units"], [{"id": "btu:eccli.9.9"}, {"id": "btu:eccli.9.10", "nv_omitted": True},
+                                          {"id": "btu:eccli.9.11", "nv_omitted": True}, {"id": "btu:eccli.9.12"}])
+        self.assertEqual(mp["absent"], ["btu:eccli.9.10", "btu:eccli.9.11"])
+
+    def test_a_verse_listed_as_missing_that_the_source_has_is_an_error(self):
+        with self.assertRaises(ValueError):
+            seed_book("act", [row(24, 6), row(24, 8)], {"missing": [{"chapter": 24, "verse": "8"}]})
+
     def test_a_chapter_is_reordered_as_the_nova_vulgata_prints_it(self):
         fixes = {"order": [{"chapter": 40, "verses": ["42a", "43a", "42b", "43b"]}]}
         rows = [row(40, 41), row(40, 42, "a"), row(40, 42, "b"), row(40, 43, "a"), row(40, 43, "b"), row(40, 44)]

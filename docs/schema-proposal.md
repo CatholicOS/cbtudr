@@ -43,7 +43,7 @@ Each Nova Vulgata verse is one unit to begin with. Units are then:
 
 The seed is the verse structure (numbers only, no text) of BibleGet's NVBSE edition, compared chapter by chapter with vatican.va (`scripts/check_vatican.py`). Where the two differ, `scripts/nova_vulgata_corrections.json` records how, and the seed follows vatican.va:
 
-- **Verses printed in brackets, without text.** The Nova Vulgata keeps the number of a verse the critical text omits and prints it in brackets: "… ab omni malo. (16 17) 18 Super scutum …" (Sir 29). There are 31 such numbers, for example 1 Reg 15:6, Mt 17:21, Act 8:37, and twelve in Sirach.
+- **Verses printed in brackets, without text.** The Nova Vulgata keeps the number of a verse the critical text omits and prints it in brackets: "… ab omni malo. (16 17) 18 Super scutum …" (Sir 29). There are 33 such numbers, for example 1 Reg 15:6, Mt 17:21, Act 8:37, and fourteen in Sirach; one bracket can hold two ("(10. 11)", Sir 9). `scripts/check_vatican.py` checks them against the page.
   - Each is a unit marked `"nv_omitted": true`.
   - The Nova Vulgata's own mapping lists it as absent.
   - Editions that print text there (the Clementine Vulgate, the Douay-Rheims) map that text to it.
