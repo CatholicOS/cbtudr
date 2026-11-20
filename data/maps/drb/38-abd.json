@@ -1,0 +1,23 @@
+{"edition": "drb", "book": "abd", "verses": [
+  {"ref": "1:1", "units": ["btu:abd.1.1"], "kind": "same", "status": "rule"},
+  {"ref": "1:2", "units": ["btu:abd.1.2"], "kind": "same", "status": "rule"},
+  {"ref": "1:3", "units": ["btu:abd.1.3"], "kind": "same", "status": "rule"},
+  {"ref": "1:4", "units": ["btu:abd.1.4"], "kind": "same", "status": "rule"},
+  {"ref": "1:5", "units": ["btu:abd.1.5"], "kind": "same", "status": "rule"},
+  {"ref": "1:6", "units": ["btu:abd.1.6"], "kind": "same", "status": "rule"},
+  {"ref": "1:7", "units": ["btu:abd.1.7"], "kind": "same", "status": "rule"},
+  {"ref": "1:8", "units": ["btu:abd.1.8"], "kind": "same", "status": "rule"},
+  {"ref": "1:9", "units": ["btu:abd.1.9"], "kind": "same", "status": "rule"},
+  {"ref": "1:10", "units": ["btu:abd.1.10"], "kind": "same", "status": "rule"},
+  {"ref": "1:11", "units": ["btu:abd.1.11"], "kind": "same", "status": "rule"},
+  {"ref": "1:12", "units": ["btu:abd.1.12"], "kind": "same", "status": "rule"},
+  {"ref": "1:13", "units": ["btu:abd.1.13"], "kind": "same", "status": "rule"},
+  {"ref": "1:14", "units": ["btu:abd.1.14"], "kind": "same", "status": "rule"},
+  {"ref": "1:15", "units": ["btu:abd.1.15"], "kind": "same", "status": "rule"},
+  {"ref": "1:16", "units": ["btu:abd.1.16"], "kind": "same", "status": "rule"},
+  {"ref": "1:17", "units": ["btu:abd.1.17"], "kind": "same", "status": "rule"},
+  {"ref": "1:18", "units": ["btu:abd.1.18"], "kind": "same", "status": "rule"},
+  {"ref": "1:19", "units": ["btu:abd.1.19"], "kind": "same", "status": "rule"},
+  {"ref": "1:20", "units": ["btu:abd.1.20"], "kind": "same", "status": "rule"},
+  {"ref": "1:21", "units": ["btu:abd.1.21"], "kind": "same", "status": "rule"}
+]}

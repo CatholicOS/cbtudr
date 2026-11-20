@@ -113,6 +113,35 @@ class Maps(unittest.TestCase):
         mp = self.m([verse("5:3", "btu:tb.5.3"), verse("5:4", "btu:tb.5.4"), verse("5:5", "btu:tb.5.4.2", "btu:tb.5.4+1")])
         self.assertTrue(any("more than once" in e for e in check_map(mp, self.TREE, BOOK)))
 
+    def test_drafts_and_corresponding_links_may_share_a_unit(self):
+        # VGCL Tb 5:3 and 5:4 both correspond to the Nova Vulgata's 5:4: there is no shared text to split.
+        for kind, status in [("same", "draft"), ("corresponding", "reviewed")]:
+            mp = self.m([verse("5:3", "btu:tb.5.3"), verse("5:4", "btu:tb.5.4", kind=kind, status=status),
+                         verse("5:5", "btu:tb.5.4", "btu:tb.5.4+1", kind=kind, status=status)])
+            self.assertEqual(check_map(mp, self.TREE, BOOK), [], (kind, status))
+
+    def test_reviewed_same_text_links_may_not_share_a_unit(self):
+        mp = self.m([verse("5:3", "btu:tb.5.3"), verse("5:4", "btu:tb.5.4", status="reviewed"),
+                     verse("5:5", "btu:tb.5.4", "btu:tb.5.4+1", status="reviewed")])
+        self.assertTrue(any("more than once" in e for e in check_map(mp, self.TREE, BOOK)))
+
+    def test_a_draft_may_propose_no_counterpart(self):
+        mp = self.m([verse("5:3", "btu:tb.5.3"), {"ref": "5:4", "units": [], "kind": "same", "status": "draft"}],
+                    absent=["btu:tb.5.4", "btu:tb.5.4+1"])
+        self.assertEqual(check_map(mp, self.TREE, BOOK), [])
+
+    def test_unlettered_parts_of_a_verse_are_numbered(self):
+        # NABRE prints Job 10:1 in two parts, both numbered 10:1: the second is 10:1#2.
+        mp = self.m([verse("5:3", "btu:tb.5.3"), verse("5:4", "btu:tb.5.4.1"), verse("5:4#2", "btu:tb.5.4.2", "btu:tb.5.4+1")])
+        self.assertEqual(check_map(mp, self.TREE, BOOK), [])
+        bad = self.m([verse("5:3", "btu:tb.5.3"), verse("5:3#1", "btu:tb.5.4", "btu:tb.5.4+1")])
+        self.assertTrue(any("not a verse ref" in e for e in check_map(bad, self.TREE, BOOK)))
+
+    def test_a_reviewed_verse_may_have_no_counterpart(self):
+        mp = self.m([verse("5:3", "btu:tb.5.3"), {"ref": "5:4", "units": [], "kind": "same", "status": "reviewed"}],
+                    absent=["btu:tb.5.4", "btu:tb.5.4+1"])
+        self.assertEqual(check_map(mp, self.TREE, BOOK), [])
+
     def test_bad_kind_status_or_ref_are_errors(self):
         mp = self.m([{"ref": "5", "units": ["btu:tb.5.3"], "kind": "similar", "status": "guess"}])
         errs = check_map(mp, self.TREE, BOOK)

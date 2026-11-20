@@ -13,7 +13,8 @@ ID_RE = re.compile(
     r"^btu:(?P<book>[a-z0-9]+)\.(?P<chapter>[1-9]\d*)\.(?P<verse>(?:0|[1-9]\d*)[a-z]*)"
     r"(?P<parts>(?:\.[1-9]\d*)*)(?:\+(?P<extra>[1-9]\d*)(?P<xparts>(?:\.[1-9]\d*)*))?$"
 )
-REF_RE = re.compile(r"^[1-9]\d*:(?:0|[1-9]\d*)[a-z]*(?:@[A-Z]+)?$")
+# chapter:verse, the edition's own letters, #n for the n-th unlettered part of a verse printed in parts, @TRADITION.
+REF_RE = re.compile(r"^[1-9]\d*:(?:0|[1-9]\d*)[a-z]*(?:#(?:[2-9]|[1-9]\d+))?(?:@[A-Z]+)?$")
 KINDS = {"same", "corresponding"}
 STATUSES = {"rule", "draft", "reviewed"}
 
@@ -116,21 +117,42 @@ def check_map(data, units, book):
             if ids:
                 errs.append(f"{ref}: an omitted verse has no units")
             continue
-        if not ids:
-            errs.append(f"{ref}: no units (mark it omitted if the edition prints no text)")
+        if not ids and v.get("status") not in ("draft", "reviewed"):
+            errs.append(f"{ref}: no units (mark it omitted if the edition prints no text, or review it as without counterpart)")
         if v.get("kind") not in KINDS:
             errs.append(f"{ref}: kind must be one of {sorted(KINDS)}")
         if v.get("status") not in STATUSES:
             errs.append(f"{ref}: status must be one of {sorted(STATUSES)}")
         run = covered.setdefault(_run(ref) if good_ref else "?", {})
+        # A draft may share a unit (it is not yet decided), and so may passages of different recensions, which
+        # have no common text to split. Reviewed or rule links of the same text cover whole units, once.
+        strict = v.get("status") != "draft" and v.get("kind") == "same"
         for uid in ids:
             if uid not in known:
                 errs.append(f"{ref}: unknown unit {uid}")
                 continue
             for leaf in _leaves(uid, kids):
-                if leaf in run:
-                    errs.append(f"{ref}: {leaf} covered more than once (also by {run[leaf]})")
-                run[leaf] = ref
+                if leaf in run and strict and run[leaf][1]:
+                    errs.append(f"{ref}: {leaf} covered more than once (also by {run[leaf][0]})")
+                if leaf not in run or strict:
+                    run[leaf] = (ref, strict)
+    return errs
+
+
+def check_drafts(drafts, data, units):
+    """Problems with a drafts file (stretches and confidences) against its map."""
+    errs = []
+    known = {u["id"] for u in units.get("units", [])}
+    draft_refs = {v["ref"] for v in data.get("verses", []) if v.get("status") == "draft"}
+    for ref, c in drafts.get("confidence", {}).items():
+        if ref not in draft_refs:
+            errs.append(f"drafts: confidence for {ref}, which is not a draft in the map")
+        if not isinstance(c, (int, float)) or not 0 <= c <= 1:
+            errs.append(f"drafts: confidence of {ref} must be between 0 and 1")
+    for st in drafts.get("stretches", []):
+        for uid in st.get("units", []) + st.get("uncovered", []):
+            if uid not in known:
+                errs.append(f"drafts: stretch {st.get('id')} has unknown unit {uid}")
     return errs
 
 
@@ -174,6 +196,9 @@ def validate(root):
                 errs.append(f"{ed['slug']}/{path.name}: unknown book {seg!r}")
                 continue
             errs += [f"{ed['slug']}/{path.name}: {e}" for e in check_map(data, trees[seg], seg)]
+            dpath = root / f"drafts/{ed['slug']}/{path.name}"
+            if dpath.exists():
+                errs += [f"{ed['slug']}/{path.name}: {e}" for e in check_drafts(json.loads(dpath.read_text()), data, trees[seg])]
             gaps = coverage_gaps(data, trees[seg])
             if gaps:
                 more = f" and {len(gaps) - 5} more" if len(gaps) > 5 else ""

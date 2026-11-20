@@ -159,7 +159,7 @@ Rules:
 
 ### 4.1 Fields
 
-- **`ref`** is the edition's own verse reference, `chapter ":" verse [segment] ["@" tradition]`. For example `10:18a`, or `1:1a@GREEK` in an edition that prints both texts of Esther.
+- **`ref`** is the edition's own verse reference, `chapter ":" verse [segment] ["#" part] ["@" tradition]`. For example `10:18a`, or `1:1a@GREEK` in an edition that prints both texts of Esther. `#n` numbers the second and later parts of a verse an edition prints in parts without letters: NABRE prints Job 10:1 in two parts, `10:1` and `10:1#2`.
 - **`units`** is an ordered list of units. A verse may cover several units, and may cross a Nova Vulgata verse or chapter boundary.
 - **`kind`:**
   - `same` means the same text, re-divided or renumbered.
@@ -169,8 +169,25 @@ Rules:
   - `draft` means proposed by a tool, not yet reviewed.
   - `reviewed` means checked by a reviewer. Who reviewed it, and when, is in the git history.
 - **`omitted: true`** marks a verse number the edition prints without text. Such a verse has no units.
+- **No counterpart.** A reviewed verse with `units: []` is text the units lack. Each such verse is a candidate for a unit of its own (`+n`, §3 rule 3).
 - **`primary`** names the tradition whose run must cover the whole book, when the edition prints more than one (Esther: `GREEK`).
 - **`absent`** lists the units the edition does not have.
+
+### 4.1.1 Drafts
+
+`drafts/<edition>/NN-<book>.json` accompanies a map that has drafts:
+
+```json
+{"edition": "vgcl", "book": "tb",
+ "stretches": [{"id": 3, "verses": ["5:1", "5:2"], "units": ["btu:tb.5.1", "btu:tb.5.2"], "uncovered": []}],
+ "confidence": {"5:1": 0.88, "5:2": 0.76}}
+```
+
+- A **stretch** is a run of the edition's verses, and of units, between two links made by rule. A reviewer may relink a draft only to units of its own stretch.
+- The **confidence** (0-1) is the similarity on which the link was proposed.
+- **`uncovered`** lists the stretch's units that no verse was linked to.
+
+Drafts files are working material for review. They leave the registry as links are reviewed.
 
 ### 4.2 Invariants
 
@@ -178,7 +195,9 @@ These are checked by `scripts/validate.py`:
 
 1. Every `ref` appears once.
 2. **A verse covers whole units only.** A boundary that falls inside a unit splits that unit first (§3, rule 2).
-3. Within one tradition's run, no unit is covered twice, whether directly or through an ancestor.
+3. Within one tradition's run, no unit is covered twice by links of the same text (`kind: same`) with status `rule` or `reviewed`, whether directly or through an ancestor.
+   - A **draft** may share a unit with another verse: it is not decided yet. The reviewer either accepts the grouping, which makes a split necessary, or relinks.
+   - **Corresponding** passages may share a unit for good. A different recension (the Vulgate's Tobit) has no common text to split: the Clementine Vulgate's Tb 5:3 and 5:4 both correspond to the Nova Vulgata's Tb 5:4.
 4. Every unit of the book is covered by the edition's primary run, or listed in `absent`.
 5. An edition's own order is the order of its `verses`; units carry only the Nova Vulgata's order.
 

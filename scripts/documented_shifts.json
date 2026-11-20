@@ -1,0 +1,286 @@
+{
+ "about": "Chapter-boundary shifts documented on BibleGet's endpoint wiki (Versification-Differences, 'Verses on the other side of a chapter boundary' and 'A different number of chapters'): the edition's verses, and the Nova Vulgata (Hebrew-numbered) verses they are. Used to check drafted maps.",
+ "shifts": [
+  {
+   "book": "gn",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "31:55",
+   "nova_vulgata": "32:1"
+  },
+  {
+   "book": "ex",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "8:1-4",
+   "nova_vulgata": "7:26-29"
+  },
+  {
+   "book": "lv",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "6:1-7",
+   "nova_vulgata": "5:20-26"
+  },
+  {
+   "book": "nm",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "16:36-50",
+   "nova_vulgata": "17:1-15"
+  },
+  {
+   "book": "dt",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "12:32",
+   "nova_vulgata": "13:1"
+  },
+  {
+   "book": "dt",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "22:30",
+   "nova_vulgata": "23:1"
+  },
+  {
+   "book": "dt",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "29:1",
+   "nova_vulgata": "28:69"
+  },
+  {
+   "book": "1sam",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "20:43",
+   "nova_vulgata": "21:1"
+  },
+  {
+   "book": "2sam",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "18:33",
+   "nova_vulgata": "19:1"
+  },
+  {
+   "book": "1reg",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "4:21-34",
+   "nova_vulgata": "5:1-14"
+  },
+  {
+   "book": "2reg",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "11:21",
+   "nova_vulgata": "12:1"
+  },
+  {
+   "book": "1par",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "6:1-15",
+   "nova_vulgata": "5:27-41"
+  },
+  {
+   "book": "2par",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "2:1",
+   "nova_vulgata": "1:18"
+  },
+  {
+   "book": "2par",
+   "editions": [
+    "vgcl",
+    "drb"
+   ],
+   "edition": "14:1",
+   "nova_vulgata": "13:23"
+  },
+  {
+   "book": "ne",
+   "editions": [
+    "vgcl",
+    "drb"
+   ],
+   "edition": "4:1-6",
+   "nova_vulgata": "3:33-38"
+  },
+  {
+   "book": "ne",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "9:38",
+   "nova_vulgata": "10:1"
+  },
+  {
+   "book": "eccle",
+   "editions": [
+    "luzzi"
+   ],
+   "edition": "5:1",
+   "nova_vulgata": "4:17"
+  },
+  {
+   "book": "is",
+   "editions": [
+    "vgcl",
+    "drb"
+   ],
+   "edition": "9:1",
+   "nova_vulgata": "8:23"
+  },
+  {
+   "book": "ier",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "9:1",
+   "nova_vulgata": "8:23"
+  },
+  {
+   "book": "ez",
+   "editions": [
+    "vgcl",
+    "drb"
+   ],
+   "edition": "20:45-49",
+   "nova_vulgata": "21:1-5"
+  },
+  {
+   "book": "dn",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "5:31",
+   "nova_vulgata": "6:1"
+  },
+  {
+   "book": "os",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "1:10-11",
+   "nova_vulgata": "2:1-2"
+  },
+  {
+   "book": "os",
+   "editions": [
+    "vgcl",
+    "drb"
+   ],
+   "edition": "11:12",
+   "nova_vulgata": "12:1"
+  },
+  {
+   "book": "os",
+   "editions": [
+    "luzzi"
+   ],
+   "edition": "13:16",
+   "nova_vulgata": "14:1"
+  },
+  {
+   "book": "nah",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "1:15",
+   "nova_vulgata": "2:1"
+  },
+  {
+   "book": "zach",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "1:18-21",
+   "nova_vulgata": "2:1-4"
+  },
+  {
+   "book": "il",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "2:28-32",
+   "nova_vulgata": "3:1-5"
+  },
+  {
+   "book": "il",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "3:1-21",
+   "nova_vulgata": "4:1-21"
+  },
+  {
+   "book": "mal",
+   "editions": [
+    "vgcl",
+    "drb",
+    "luzzi"
+   ],
+   "edition": "4:1-6",
+   "nova_vulgata": "3:19-24"
+  }
+ ]
+}

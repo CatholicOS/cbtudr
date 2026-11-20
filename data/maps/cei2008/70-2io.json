@@ -1,0 +1,15 @@
+{"edition": "cei2008", "book": "2io", "verses": [
+  {"ref": "1:1", "units": ["btu:2io.1.1"], "kind": "same", "status": "rule"},
+  {"ref": "1:2", "units": ["btu:2io.1.2"], "kind": "same", "status": "rule"},
+  {"ref": "1:3", "units": ["btu:2io.1.3"], "kind": "same", "status": "rule"},
+  {"ref": "1:4", "units": ["btu:2io.1.4"], "kind": "same", "status": "rule"},
+  {"ref": "1:5", "units": ["btu:2io.1.5"], "kind": "same", "status": "rule"},
+  {"ref": "1:6", "units": ["btu:2io.1.6"], "kind": "same", "status": "rule"},
+  {"ref": "1:7", "units": ["btu:2io.1.7"], "kind": "same", "status": "rule"},
+  {"ref": "1:8", "units": ["btu:2io.1.8"], "kind": "same", "status": "rule"},
+  {"ref": "1:9", "units": ["btu:2io.1.9"], "kind": "same", "status": "rule"},
+  {"ref": "1:10", "units": ["btu:2io.1.10"], "kind": "same", "status": "rule"},
+  {"ref": "1:11", "units": ["btu:2io.1.11"], "kind": "same", "status": "rule"},
+  {"ref": "1:12", "units": ["btu:2io.1.12"], "kind": "same", "status": "rule"},
+  {"ref": "1:13", "units": ["btu:2io.1.13"], "kind": "same", "status": "rule"}
+]}
