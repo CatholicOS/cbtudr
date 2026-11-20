@@ -48,6 +48,14 @@ class Rules(unittest.TestCase):
         self.assertEqual(stretches[0]["units"], ["btu:gn.5.1", "btu:gn.5.2", "btu:gn.5.3"])
         self.assertEqual([lk["status"] for lk in links if lk["ref"] in ("4:1", "6:1")], ["rule", "rule"])
 
+    def test_a_hebrew_run_matches_the_units_without_the_greek_additions(self):
+        # Esther's Hebrew text has no lettered additions: its 1:1-3 are the units 1:1-3, by rule.
+        vs = [verse(1, n, book=19, tradition="HEBREW") for n in (1, 2, 3)]
+        us = [unit("est", 1, "1a"), unit("est", 1, "1b"), unit("est", 1, 1), unit("est", 1, 2), unit("est", 1, 3)]
+        links, stretches = rule_pass(vs, us, psalms="hebrew")
+        self.assertEqual(stretches, [])
+        self.assertEqual([lk["units"] for lk in links], [["btu:est.1.1"], ["btu:est.1.2"], ["btu:est.1.3"]])
+
     def test_a_missing_nova_vulgata_omission_still_matches(self):
         # The Nova Vulgata prints Mt 17:21 in brackets; an edition without it matches the chapter by rule.
         vs = [verse(17, 20, book=47), verse(17, 22, book=47)]

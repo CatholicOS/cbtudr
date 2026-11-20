@@ -47,6 +47,16 @@ def read_vectors(path):
     return out
 
 
+def kind_for(segment, tradition, ref, kind, both):
+    """A link's kind. In an edition that prints Esther in both texts (`both`), the Greek text's unlettered verses
+    are the Septuagint's version of the Masoretic verses the units are: corresponding. Its lettered additions,
+    which the Nova Vulgata translates from the Greek, and its Hebrew text, are the same text."""
+    if segment == "est" and both and tradition == "GREEK":
+        label = ref.split("@")[0].split("#")[0].split(":")[1]
+        return "same" if re.search(r"[a-z]", label) else "corresponding"
+    return kind
+
+
 def fold_copies(rows):
     """Rows the source stores twice: an original where the edition prints it, and a copy placed in the Nova
     Vulgata's order whose alt_ref names the original (BibleGet stores the Vulgate's Greek additions to Esther both
@@ -105,7 +115,9 @@ def _to_originals(links, stretches, copies, tradition):
     return sorted(links, key=lambda lk: order(lk["ref"])), stretches
 
 
-def draft_edition(root, slug, structure, vectors, nv_vectors, psalms="hebrew", corresponding=frozenset(), extra=0.15, gap=0.30):
+def draft_edition(root, slug, structure, vectors, nv_vectors, psalms="hebrew", corresponding=frozenset(), extra=0.15, gap=0.30, only=None):
+    """Drafts an edition's maps; with `only` (book segments), only those books, leaving the others' files as they are
+    (a redraft must not overwrite another book's reviewed links)."""
     root = Path(root)
     books = json.loads((root / "data/books.json").read_text())["books"]
     ev, nv = read_vectors(vectors), read_vectors(nv_vectors)
@@ -117,7 +129,7 @@ def draft_edition(root, slug, structure, vectors, nv_vectors, psalms="hebrew", c
     (root / f"data/maps/{slug}").mkdir(parents=True, exist_ok=True)
     (root / f"drafts/{slug}").mkdir(parents=True, exist_ok=True)
     for book in books:
-        if book["number"] not in rows:
+        if book["number"] not in rows or (only is not None and book["segment"] not in only):
             continue
         units = _units(root, book)
         runs = {}
@@ -153,6 +165,9 @@ def draft_edition(root, slug, structure, vectors, nv_vectors, psalms="hebrew", c
             links, stretches = draft_links(text, units, psalms=psalms, kind=kind, edition=edition, extra=extra, gap=gap)
             if copies:
                 links, stretches = _to_originals(links, stretches, copies, tradition)
+            both = "GREEK" in runs and "HEBREW" in runs
+            for lk in links:
+                lk["kind"] = kind_for(book["segment"], tradition, lk["ref"], lk["kind"], both)
             for lk in links:
                 if lk["status"] == "draft":
                     confidence[lk["ref"]] = lk.pop("confidence")
@@ -186,10 +201,12 @@ def main():
     ap.add_argument("--nv-vectors", required=True)
     ap.add_argument("--psalms", choices=["hebrew", "vulgate"], default="hebrew")
     ap.add_argument("--kind-corresponding", default="")
+    ap.add_argument("--only", default="", help="book segments to draft, comma-separated (default: every book)")
     a = ap.parse_args()
     root = Path(__file__).resolve().parent.parent
     corr = frozenset(x for x in a.kind_corresponding.split(",") if x)
-    draft_edition(root, a.edition, a.structure, a.vectors, a.nv_vectors, a.psalms, corr)
+    only = frozenset(x for x in a.only.split(",") if x) or None
+    draft_edition(root, a.edition, a.structure, a.vectors, a.nv_vectors, a.psalms, corr, only=only)
 
 
 if __name__ == "__main__":
