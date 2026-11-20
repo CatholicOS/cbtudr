@@ -1,4 +1,4 @@
-{"edition": "nvbse", "book": "est", "primary": "GREEK", "verses": [
+{"edition": "nvbse", "book": "est", "primary": "GREEK", "absent": ["btu:est.1.1a+1", "btu:est.1.1b+1", "btu:est.1.1d+1", "btu:est.1.1d+2", "btu:est.1.1f+1", "btu:est.1.1g+1", "btu:est.1.1k+1", "btu:est.1.1k+2", "btu:est.1.1k+3", "btu:est.1.1k+4", "btu:est.1.1k+5", "btu:est.1.1k+6"], "verses": [
   {"ref": "1:1a@GREEK", "units": ["btu:est.1.1a"], "kind": "same", "status": "rule"},
   {"ref": "1:1b@GREEK", "units": ["btu:est.1.1b"], "kind": "same", "status": "rule"},
   {"ref": "1:1c@GREEK", "units": ["btu:est.1.1c"], "kind": "same", "status": "rule"},
