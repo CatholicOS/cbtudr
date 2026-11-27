@@ -47,7 +47,7 @@ The seed is the verse structure (numbers only, no text) of BibleGet's NVBSE edit
   - Each is a unit marked `"nv_omitted": true`.
   - The Nova Vulgata's own mapping lists it as absent.
   - Editions that print text there (the Clementine Vulgate, the Douay-Rheims) map that text to it.
-- **Verses the source lacked:** Ez 40:15, Act 24:8, Sir 1:20. Each is a unit in its place.
+- **Verses the source lacked:** Ez 40:15, Act 24:8, Sir 1:20 were missing from BibleGet's first import of the Nova Vulgata, and the corrections listed them as `missing`; they have since been restored there, so the source has them and the corrections no longer list them. Each is a unit in its place.
 - **Printed order:** the Nova Vulgata prints Ez 40:42a, 43a, 42b, 43b, and the units follow that order.
 
 Other features of the Nova Vulgata the seed keeps:
